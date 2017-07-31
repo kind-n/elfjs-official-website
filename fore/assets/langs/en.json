@@ -1,0 +1,13 @@
+{
+    "menu" : {
+        "demo" : "Demo",
+        "docs" : "Document",
+        "ours" : "About"
+    },
+
+    "home" : {
+        "slogan" : "Activity is the only road to knowledge",
+        "starts" : "GET STARTED",
+        "github" : "GitHub"
+    }
+}
