@@ -6,4 +6,4 @@ Elf.config({
     module: "commonjs"
 });
 
-Elf.require("/fore/views/main");
+Elf.require("/fore/views/main").catch(console.error.bind(console));

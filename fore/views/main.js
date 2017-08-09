@@ -6,12 +6,12 @@ Link.state("/demo.html", "/fore/views/demo/demo");
 Link.state("/docs.html", "/fore/views/docs/docs");
 Link.state("/ours.html", "/fore/views/ours/ours");
 
-I18n.state("en"        , "/fore/assets/langs/en.json");
 I18n.state("zh-CN"     , "/fore/assets/langs/zh-CN.json");
+I18n.state("en"        , "/fore/assets/langs/en.json");
 
-Elf.Promise.all([
+module.exports = Elf.Promise.all([
     Link.start(),
     I18n.start()
 ]).then(function () {
-    Elf.render(Elf.createElement(Link.RouterView), document.querySelector("section"), true);
+    return Elf.render(Elf.createElement(Link.RouterView), document.querySelector("section"), true);
 });
