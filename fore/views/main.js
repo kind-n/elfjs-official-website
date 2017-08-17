@@ -5,6 +5,7 @@ Link.state("/home.html", "/fore/views/home/home");
 Link.state("/demo.html", "/fore/views/demo/demo");
 Link.state("/docs.html", "/fore/views/docs/docs");
 Link.state("/ours.html", "/fore/views/ours/ours");
+Link.state("**",         "/fore/views/404/404");
 
 I18n.state("zh-CN"     , "/fore/assets/langs/zh-CN.json");
 I18n.state("en"        , "/fore/assets/langs/en.json");
