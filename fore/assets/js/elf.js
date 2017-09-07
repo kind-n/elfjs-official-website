@@ -5,7 +5,7 @@
  * 
  * @copyright (C) 2017 Wu Hu. All Rights Reserved.
  * 
- * @version 0.1.6
+ * @version 0.1.7
  * @license MIT
  * 
  */
@@ -550,7 +550,7 @@ function xhrAsync (request, resolve, reject) {
         xhrRequest.abort();
     };
     function ownResolved () {
-        var result = xhrRequest.responseText;
+        var result = xhrRequest.response || xhrRequest.responseText;
         var status = xhrRequest.status === 1223 ? 200 : xhrRequest.status;
         if (status === 0) {
             status = result ? 200 : 0;
@@ -1441,7 +1441,7 @@ function requireFinder (modname) {
  * @returns {String}
  */
 function requireFormat (value) {
-    return amdOptions.module === "commonjs" ? "define(" + requireDepend(value) + ",function(require,exports,module){\n" + value + "\n})" : value;
+    return amdOptions.module === "commonjs" ? "define(" + requireDepend(value.replace(regex_dels, "")) + ",function(require,exports,module){\n" + value + "\n})" : value;
 }
 
 /**
@@ -2317,6 +2317,7 @@ var code = doc.createElement("code");
 var namespace1 = "http://www.w3.org/2000/svg";
 var namespace2 = "http://www.w3.org/2000/MathML";
 
+var regex_dels = /(?:\/\*[\s\S]*?\*\/|\/\/[\s\S]*?(?:\n|$))/g;
 var regex_deps = /(?:\b|(\.)\s*)require\s*\(\s*(?:"([^"]+)"|'([^']+)')\s*\)/;
 var regex_prop = /^\s*([^\s"'<>/=]+)(?:\s*(=)\s*(?:"([^"]*)"|'([^']*)'|([^\s"'<>/=]+)))?/;
 var regex_loop = /([^\s].*)\s+(?:in|of)\s+(.*[^\s])/;
