@@ -1,4 +1,6 @@
-module.exports = Elf.Component("ours", Elf.redactElement(
-    require("./ours.html"),
-    require("../../modules/menu/menu")
-))(Elf.createClass({}));
+module.exports = Elf.Component("ours", {
+    render : Elf.redactElement(
+        require("./ours.html"),
+        require("../../modules/menu/menu")
+    )
+});

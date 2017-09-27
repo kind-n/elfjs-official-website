@@ -1,31 +1,27 @@
 var Mappings = [];
 var Viewport = void 0;
 
-var RouterLink = Elf.Component("router-link")(
-    Elf.createClass({
-        render : function () {
-            return Elf.createElement("a", Elf.assign({ ref: "link" }, this.props), this.props.children);
-        },
-        onInitial : function () {
-            Elf.attachEvent(this.refs.link, "click", this);
-        },
-        onDispose : function () {
-            Elf.detachEvent(this.refs.link, "click", this);
-        },
-        handleEvent : function (event) {
-            event.stopPropagation();
-            event.preventDefault();
-            forth(this.props.href);
-        }
-    })
-);
-var RouterView = Elf.Component("router-view")(
-    Elf.createClass({
-        render : function () {
-            return typeof Viewport === "function" ? Elf.createElement(Viewport) : null;
-        }
-    })
-);
+var RouterLink = Elf.Component("router-link",{
+    render : function () {
+        return Elf.createElement("a", Elf.assign({ ref: "link" }, this.props), this.props.children);
+    },
+    onInitial : function () {
+        Elf.attachEvent(this.refs.link, "click", this);
+    },
+    onDispose : function () {
+        Elf.detachEvent(this.refs.link, "click", this);
+    },
+    handleEvent : function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        forth(this.props.href);
+    }
+});
+var RouterView = Elf.Component("router-view",{
+    render : function () {
+        return typeof Viewport === "function" ? Elf.createElement(Viewport) : null;
+    }
+});
 
 module.exports.RouterLink = RouterLink;
 module.exports.RouterView = RouterView;

@@ -1,15 +1,13 @@
 var Mappings = [];
 var Language = void 0;
 
-var I18nTransform = Elf.Transform("i18n")(
-    Elf.createClass({
-        transform : function (value) {
-            return value.split(".").reduce(function (init, item) {
-                return init && init[item];
-            }, Language);
-        }
-    })
-);
+var I18nTransform = Elf.Transform("i18n",{
+    transform : function (value) {
+        return value.split(".").reduce(function (init, item) {
+            return init && init[item];
+        }, Language);
+    }
+});
 
 module.exports.I18nTransform = I18nTransform;
 module.exports.state = state;

@@ -1,1 +1,3 @@
-module.exports = Elf.Component("menu", Elf.redactElement(require("./menu.html")))(Elf.createClass({}));
+module.exports = Elf.Component("menu", {
+    render : Elf.redactElement(require("./menu.html"))
+});
