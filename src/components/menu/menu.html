@@ -1,0 +1,22 @@
+<div class="elfjs-nav elfjs-animation">
+    <div class="elfjs-logo elfjs-fts-3">
+        <router-link href="/home.html">
+            <span class="elfjs-clr-3">E</span>
+            <span class="elfjs-clr-1">L</span>
+            <span class="elfjs-clr-1">F</span>
+            <span class="elfjs-clr-3">.</span>
+        </router-link>
+    </div>
+    <div class="elfjs-menu elfjs-fts-2">
+        <input class="elfjs-menu-input" type="checkbox" id="menu" ref="menu">
+        <label class="elfjs-menu-label elfjs-animation" for="menu"></label>
+        <label class="elfjs-menu-shade elfjs-animation" for="menu"></label>
+
+        <div class="elfjs-menu-panel elfjs-clr-2 elfjs-animation">
+            <router-link class="elfjs-{{ props.name === 'demo' ? 'active' : 'normal' }}" href="/demo.html">{{ "menu.demo" | i18n }}</router-link>
+            <router-link class="elfjs-{{ props.name === 'docs' ? 'active' : 'normal' }}" href="/docs.html">{{ "menu.docs" | i18n }}</router-link>
+            <router-link class="elfjs-{{ props.name === 'ours' ? 'active' : 'normal' }}" href="/ours.html">{{ "menu.ours" | i18n }}</router-link>
+            <span class="elfjs-normal elfjs-pointer" onclick="onChangeLanguage();">{{ "menu.lang" | i18n }}</span>
+        </div>
+    </div>
+</div>

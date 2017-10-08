@@ -1,0 +1,16 @@
+<div class="elfjs-docs">
+    <div class="elfjs-container">
+        <menu name="docs"></menu>
+    </div>
+    <div class="elfjs-container">
+        <div class="elfjs-section">
+            <div class="elfjs-code" ref="code" innerHTML="{{ xhtml }}"></div>
+        </div>
+        <div class="elfjs-article">
+            <div class="elfjs-hash" ref="hash">
+                <a elf-each="item in heads" class="elfjs-lyr-{{ item.tier }}" href="#{{ item.href }}">{{ item.name }}</a>
+            </div>
+        </div>
+    </div>
+    <foot name="docs"></foot>
+</div>

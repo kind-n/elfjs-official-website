@@ -1,18 +1,24 @@
+/**
+ * 
+ * @copyright (C) 2017 Wu Hu. All Rights Reserved.
+ * 
+ */
+
 "use strict";
+
+/////////////////////////////////////////////////
 
 const fs   = require("fs");
 const http = require("http");
 const path = require("path");
 const zlib = require("zlib");
-
+const list = [];
 
 const TEXT_CHAR = "; charset=UTF-8";
-
 const TEXT_TYPE = {
         type    : "text/plain" + TEXT_CHAR,
         gzip    : true 
 };
-
 const MIME_TYPE = {
     ".js"       : {
         type    : "text/javascript"  + TEXT_CHAR,
@@ -37,143 +43,157 @@ const MIME_TYPE = {
     ".css"      : {
         type    : "text/css"         + TEXT_CHAR,
         gzip    : true
+    },
+    ".svg"      : {
+        type    : "image/svg+xml",
+        gzip    : true
+    },
+    ".jpg"      : {
+        type    : "image/jpeg",
+        gzip    : false
+    },
+    ".png"      : {
+        type    : "image/png",
+        gzip    : false
     }
 };
 
-const URL_ROBOTS  = /^\/robots\.txt/i;
-const URL_SITEMAP = /^\/sitemap\.xml/i;
-const URL_FAVICON = /^\/favicon\.ico/i;
 
-const URL_BACK    = /^\/api\//i;
-const URL_FORE    = /^\/fore\//i;
-const URL_VIEW    = /^\/[^\/]+\.html/i;
+use(/^\/$/i,
+    /**
+     * 
+     * @param {String} url
+     * @param {http.IncomingMessage} req
+     * @param {http.OutgoingMessage} res
+     */
+    function (url, req, res) {
+        res.writeHead(301, {
+            "Location" : "/home.html"
+        });
+        res.end();
+    }
+);
 
-const URL_TRIM    = /[\?#].*$/;
+use(/^\/static\//i,
+    /**
+     * 
+     * @param {String} url
+     * @param {http.IncomingMessage} req
+     * @param {http.OutgoingMessage} res
+     */
+    function (url, req, res) {
+        return _200(path.join(__dirname, "node_modules", url.replace(/^\/static\//i, "/")), req, res);
+    }
+);
 
+use(/^\/(?:assets|commons|components|documents|languages|views)\//i,
+    /**
+     * 
+     * @param {String} url
+     * @param {http.IncomingMessage} req
+     * @param {http.OutgoingMessage} res
+     */
+    function (url, req, res) {
+        return _200(path.join(__dirname, "src", url), req, res);  
+    }
+);
+
+use (/^\/(?:robots\.txt|sitemap\.xml|favicon\.ico)$/i,
+    /**
+     * 
+     * @param {String} url
+     * @param {http.IncomingMessage} req
+     * @param {http.OutgoingMessage} res
+     */
+    function (url, req, res) {
+        return _200(path.join(__dirname, url), req, res);
+    }
+);
+
+use(/^\/[^\/]*\.html$/i,
+
+    /**
+     * 
+     * @param {String} url
+     * @param {http.IncomingMessage} req
+     * @param {http.OutgoingMessage} res
+     */
+    function (url, req, res) {
+        return _200(path.join(__dirname, "src/main.html"), req, res);
+    }
+);
+
+/**
+ * 
+ * 
+ */
 http.createServer(function (req, res) {
 
-    const url = req.url.replace(URL_TRIM, "");
-
-    if (url === "/") {
-        return main(req, res);
-    }
-
-    if (URL_ROBOTS.test(url)) {
-        return robots(req, res);
-    }
-
-    if (URL_SITEMAP.test(url)) {
-        return sitemap(req, res);
-    }
-    
-    if (URL_FAVICON.test(url)) {
-        return favicon(req, res);
-    }
-
-    if (URL_BACK.test(url)) {
-        return back(req, res);
-    }
-
-    if (URL_FORE.test(url)) {
-        return fore(req, res);
-    }
-
-    if (URL_VIEW.test(url)) {
-        return view(req, res);
-    }
-
-    res.statusCode = 404;
-    res.end("Not Found");
-
+    return hwd(req.url.replace(/[?#]+.*$/, ""), req, res);
 
 }).listen(8080);
 
 /**
  * 
- * @param {http.IncomingMessage} req 
- * @param {http.ServerResponse} res
+ * 
+ * @param {RegExp} regexp 
+ * @param {Function} handler 
  */
-function main (req, res) {
-    res.writeHead(301, {
-        Location: "/home.html"
+function use (regexp, handler) {
+    list.push({
+        path    : regexp,
+        handler : handler
     });
-    res.end();
 }
 
 /**
  * 
+ * 
+ * @param {String} router 
  * @param {http.IncomingMessage} req 
- * @param {http.ServerResponse} res
+ * @param {http.OutgoingMessage} res 
  */
-function robots (req, res) {
-    res.statusCode = 404;
-    res.end();
+function hwd (router, req, res) {
+    for (let item of list) {
+        if (item.path.test(router)) {
+            return item.handler(router, req, res);
+        }
+    }
+    return _404(router, req, res);
 }
 
 /**
  * 
- * @param {http.IncomingMessage} req 
- * @param {http.ServerResponse} res
- */
-function sitemap (req, res) {
-    res.statusCode = 404;
-    res.end();
-}
-
-/**
  * 
+ * @param {String} router 
  * @param {http.IncomingMessage} req 
- * @param {http.ServerResponse} res
+ * @param {http.OutgoingMessage} res 
  */
-function favicon (req, res) {
-    res.statusCode = 404;
-    res.end();
-}
-
-/**
- * 
- * @param {http.IncomingMessage} req 
- * @param {http.ServerResponse} res
- */
-function back (req, res) {
-    res.statusCode = 404;
-    res.end();
-}
-
-/**
- * 
- * @param {http.IncomingMessage} req 
- * @param {http.ServerResponse} res
- */
-function fore (req, res) {
-    const url = path.join(__dirname, req.url.replace(URL_TRIM, ""));
-    const ext = path.extname(url).toLowerCase();
-    if (fs.existsSync(url) &&
-        fs.statSync(url).isFile()) {
-        
-        var mime = MIME_TYPE[ext] || TEXT_TYPE;
-        res.setHeader("Content-Type", mime.type);
-        if (mime.gzip) {
+function _200 (router, req, res) {
+    if (fs.existsSync(router) &&
+        fs.statSync(router).isFile()) {
+        const mimetype = MIME_TYPE[
+            path.extname(router).toLowerCase()] || TEXT_TYPE;
+        res.setHeader("Content-Type", mimetype.type);
+        if (mimetype.gzip) {
             res.setHeader("Content-Encoding", "gzip");
-            fs.createReadStream(url).pipe(zlib.createGzip()).pipe(res);
+            fs.createReadStream(router).pipe(zlib.createGzip()).pipe(res);
         } else {
-            fs.createReadStream(url).pipe(res);
+            fs.createReadStream(router).pipe(res);
         }
     } else {
-        res.statusCode = 404;
-        res.end("Not Found");
+        _404(router, req, res);
     }
 }
 
 /**
  * 
+ * 
+ * @param {String} router 
  * @param {http.IncomingMessage} req 
- * @param {http.ServerResponse} res
+ * @param {http.OutgoingMessage} res 
  */
-function view (req, res) {
-    res.setHeader("Content-Type", "text/html; charset=UTF-8");
-    res.setHeader("Content-Encoding", "gzip");
-    fs.createReadStream(
-        path.join(__dirname, "./main.html")
-    ).pipe(zlib.createGzip()).pipe(res);
+function _404 (router, req, res) {
+    res.statusCode = 404;
+    res.end("Not Found");
 }

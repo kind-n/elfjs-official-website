@@ -1,7 +1,9 @@
 {
     "name": "elfjs-official-website",
-    "version": "1.0.0",
+    "description": "elfjs official website",
     "dependencies": {
-        "elfjs": "^0.2.0"
-    }
+        "elfjs": "^0.2.3",
+        "marked": "^0.3.6"
+    },
+    "version": "1.0.0"
 }

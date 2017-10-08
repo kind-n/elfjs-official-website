@@ -1,0 +1,26 @@
+{
+    "menu" : {
+        "demo" : "Demo",
+        "docs" : "Document",
+        "ours" : "About",
+        "lang" : "中文"
+    },
+
+    "foot" : {
+        "join"      : "Join Us",
+        "report"    : "Report Error",
+        "license"   : "Released under the MIT license",
+        "copyright" : "Copyright (C) 2017 Wu Hu. All Rights Reserved."
+    },
+
+    "home" : {
+        "slogan" : "Activity is the only road to knowledge",
+        "starts" : "GET STARTED",
+        "github" : "GitHub"
+    },
+    
+    "loss" : {
+        "status" : "Bad thing happens!",
+        "return" : "GO HOME"   
+    }
+}

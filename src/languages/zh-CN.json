@@ -1,0 +1,26 @@
+{
+    "menu" : {
+        "demo" : "示例",
+        "docs" : "文档",
+        "ours" : "关于",
+        "lang" : "English"
+    },
+    
+    "foot" : {
+        "join"      : "加入我们",
+        "report"    : "报告错误",
+        "license"   : "遵循 MIT 开源协议",
+        "copyright" : "Copyright (C) 2017 Wu Hu. All Rights Reserved."
+    },
+
+    "home" : {
+        "slogan" : "见之不若知之 知之不若行之",
+        "starts" : "开始使用",
+        "github" : "GitHub"
+    },
+
+    "loss" : {
+        "status" : "页面未找到!",
+        "return" : "回到首页"   
+    }
+}
