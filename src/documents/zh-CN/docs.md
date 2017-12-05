@@ -182,13 +182,13 @@ Elf.require(name);
     });
 ```
 
-## Trustor
+## Compiler
 
 根据文件后缀名决定文件加载完成后如何解析。
 
 * __语法__
 ```js
-    Elf.Trustor[ /* extname */ ] = /* CompilerMethod */ function (value, modname) {
+    Elf.Compiler[ /* extname */ ] = /* CompilerMethod */ function (value, modname) {
         return { exports : value };
     };
 ```
@@ -199,8 +199,8 @@ Elf.require(name);
     * 一个带有`value`和`modname`两个参数的函数。当`extname`文件加载完成后，`CompilerMethod`将会被调用。同时传入`value(文件内容)`和`modname(文件路径)`两个参数，`CompilerMethod`需要返回一个 [Provide](#Provide) 对象或 [Elf.Promise](#Promise)<[Provide](#Provide)> 对象。
 * __示例__
 ```js
-    Elf.Trustor.tsx = function (value, modname) {
-        return Elf.Trustor.js(ts.transpile(value, {
+    Elf.Compiler.tsx = function (value, modname) {
+        return Elf.Compiler.js(ts.transpile(value, {
             module : ts.ModuleKind.AMD,
             target : ts.ScriptTarget.ES5,
             experimentalDecorators : true,
@@ -497,9 +497,9 @@ Elf.require(name);
 
 * __语法__
 ```html
-    <div>Date: {{ value | date "YYYY-MM-DD", 8 }}</div>
+    <div>Date: {{ value | date "YYYY-MM-DD" 8 }}</div>
 ```
-* 管道与表达式之间用`|`分割。若管道需要传入其他参数，则参数与管道名用`空格`分割，参数之间用`逗号`隔开。
+* 管道与表达式之间用`|`分割。若管道需要传入其他参数，则参数与管道名之间用`空格`分割。
 * 可以有多个管道，管道之间用`|`分割。
 * 上面的代码最终将`date`输出为东`8`区`YYYY-MM-DD`格式。
 

@@ -13,7 +13,6 @@
 * __文件__
     * 在`NPM`包的`src/`目录你将找到`.js(完整版)`、`.min.js(迷你版)`以及`.d.ts(类型声明)`文件。
     * 使用支持 [DefinitelyTyped](http://definitelytyped.org/) 的 [IDE](https://code.visualstudio.com/) 可以有效的进行代码提示与类型检查。
-    * 开发环境不要使用迷你版，否则将失去错误提示和警告。
 
 # 开始
 

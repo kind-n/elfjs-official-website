@@ -2,7 +2,7 @@
     "name": "elfjs-official-website",
     "description": "elfjs official website",
     "dependencies": {
-        "elfjs": "^0.2.3",
+        "elfjs": "^0.3.0",
         "marked": "^0.3.6"
     },
     "version": "1.0.0",
