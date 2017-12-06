@@ -277,7 +277,7 @@ Elf.require(name);
 
 ## Transform
 
-定义一个管道类。
+定义一个转换类。
 
 * __语法__
 ```js
@@ -285,11 +285,11 @@ Elf.require(name);
 ```
 * __参数__
     * __name__
-    * 管道别名，它将作为`pipe`在模板中使用。
+    * 别名，它将作为`pipe`在模板中使用。
     * __proto__
     * 一个对象，应该是新创建的类的原型。必须实现`transform`函数。
 * __返回值__
-    * 一个指令类。
+    * 一个转换类。
 * __示例__
 ```js
     module.exports = Elf.Transform("date", {
