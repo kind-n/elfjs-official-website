@@ -107,6 +107,11 @@
     * 同 [window.Promise.resolve(value)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve)。
     * __Elf.Promise.ajax(request)__
     * 发起一个 [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) 或 [JSONP](https://en.wikipedia.org/wiki/JSONP) 请求。需要传入一个 [Request](#Request) 对象。返回一个 [Elf.Promise](#Promise)<[Response](#Response)> 对象。
+* __原型属性__
+    * __status__
+    * 提供同步访问`promise`的状态。
+    * __result__
+    * 提供同步访问`promise`的结果。
 * __原型方法__
     * __Elf.Promise.prototype.catch(onRejected)__
     * 同 [window.Promise.prototype.catch(onRejected)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch)。
@@ -118,6 +123,8 @@
 # 加载器方法
 
 ***
+
+> 加载器方法已移至`elf-loader`。使用加载器加载`html`文件时，所编译的`render`函数将包含`sourceMap`。
 
 ## set
 
