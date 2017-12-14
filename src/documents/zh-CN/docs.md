@@ -488,6 +488,26 @@ Elf.require(name);
 ```
 * 这些表达式会在对应 [Component](#Component) 实例作用域下直接作为`JavaScript`被解析。表达式的返回值将作为输出文本。
 
+
+## 条件输出
+
+`Elf.js`提供在模板中根据条件输出`Element`的支持。
+
+* __语法__
+```html
+    <div e-if="number > 0">{{ text }}</div>
+```
+* 通过`e-if`属性可以在条件满足时才创建`Element`，它的值是一个`boolean`表达式。
+
+## 循环输出
+
+`Elf.js`提供在模板中遍历数组或对象，循环输出`Element`的支持。
+* __语法__
+```html
+    <div e-for="item in values">{{ item }}</div>
+```
+* 通过`e-for`属性可以遍历数组或对象，循环输出`Element`。变量名与遍历的对象用`in`或`of`分割。
+
 ## 原始 HTML
 
 `{{ }}`语法会将数据解析成普通文本，而非`HTML`代码。若需输出真正的`HTML`，需要使用`innerHTML`属性。
