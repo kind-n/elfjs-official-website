@@ -1,6 +1,6 @@
 {
     "menu" : {
-        "demo" : "示例",
+        "demo" : "教程",
         "docs" : "文档",
         "ours" : "关于",
         "lang" : "English"
@@ -10,7 +10,7 @@
         "join"      : "加入我们",
         "report"    : "报告错误",
         "license"   : "遵循 MIT 开源协议",
-        "copyright" : "Copyright 2008 Wu Hu. All Rights Reserved."
+        "copyright" : "Copyright 2018 Wu Hu. All Rights Reserved."
     },
 
     "home" : {
