@@ -13,9 +13,9 @@ body {
     font-family: "Inconsolata", sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
-body, form, h1, h2, h3, h4, h5, h6, dl, ol, ul, p {
+body, form, h1, h2, h3, h4, h5, h6, dl, ol, ul {
+    font-weight: inherit;
     margin: 0;
-    font-weight: normal;
 }
 textarea, button, select, input {
     font-size: 100%;

@@ -16,7 +16,16 @@
     "home" : {
         "slogan" : "Activity is the only road to knowledge",
         "starts" : "GET STARTED",
-        "github" : "GitHub"
+        "github" : "GitHub",
+        "statement" : "Statement",
+        "briefness" : "Briefness",
+        "efficient" : "Efficient",
+        "statement1" : "Easily create an interactive user interface. Automatically and accurately update and render the correct components.",
+        "statement2" : "The template engine with Source Map makes your view more intuitive and easier to debug.",
+        "briefness1" : "Based on the design of component, the complex structure is simplified and the code reuse rate is improved.",
+        "briefness2" : "The same HTML template and DOM event mechanism as the native, State management is more simple.",
+        "efficient1" : "No need to compile and pack, Bring the acme development experience.",
+        "efficient2" : "10kb min+gzip size. Super fast virtual DOM."
     },
     
     "loss" : {

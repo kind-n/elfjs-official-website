@@ -356,13 +356,29 @@
 
 .elfjs-slogan {
     font-size: .9rem;
-    padding: 18vh 8% 10vh;
+    padding: 18vh 8% 8vh;
     text-align: center;
 }
 
 .elfjs-center {
     text-align: center;
 }
+
+.elfjs-resume {
+    padding: 45px 8% 80px;
+    text-align: center;
+}
+
+.elfjs-resume-item {
+    margin: 8% 5% 5%;
+    text-align: left;
+}
+
+.elfjs-readme {
+    min-height: calc(100vh - 272px);
+    overflow: hidden;
+}
+
 
 .elfjs-button-filled {
     width: 5.5rem;
@@ -440,6 +456,13 @@
 }
 
 @media (min-width: 800px) {
+    .elfjs-resume-item {
+        margin: 8% 25px 5%;
+        width: calc(100% / 3 - 55px);
+        display: inline-block;
+        vertical-align: top;
+    }
+
     .elfjs-button-filled,
     .elfjs-button-hollow {
         width: 170px;

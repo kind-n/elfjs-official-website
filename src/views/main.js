@@ -1,5 +1,6 @@
 var I18n  = require("../commons/depends/i18n");
 var Link  = require("../commons/depends/link");
+var Async = require("../commons/depends/async");
 
 
 I18n.state("zh-CN"     , "/languages/zh-CN.json");
@@ -14,7 +15,8 @@ Link.state("**",         "/views/404/404");
 Elf.depend([
     I18n.I18nTransform,
     Link.RouterLink,
-    Link.RouterView
+    Link.RouterView,
+    Async
 ]);
 
 module.exports = Elf.Promise.all([

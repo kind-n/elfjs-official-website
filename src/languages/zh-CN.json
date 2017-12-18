@@ -10,13 +10,22 @@
         "join"      : "加入我们",
         "report"    : "报告错误",
         "license"   : "遵循 MIT 开源协议",
-        "copyright" : "Copyright 2018 Wu Hu. All Rights Reserved."
+        "copyright" : "版权所有 2018 吴虎。保留所有权利。"
     },
 
     "home" : {
         "slogan" : "见之不若知之 知之不若行之",
         "starts" : "开始使用",
-        "github" : "GitHub"
+        "github" : "GitHub",
+        "statement" : "陈述",
+        "briefness" : "简单",
+        "efficient" : "高效",
+        "statement1" : "轻松创建交互式用户界面。自动、精准地更新和渲染正确的组件。",
+        "statement2" : "具有Source Map的模板引擎，使您的视图更直观，更易于调试。",
+        "briefness1" : "基于组件的设计，使得复杂结构简单化，提升代码复用率。",
+        "briefness2" : "与原生相同的HTML模板和DOM事件机制，状态管理更简单。",
+        "efficient1" : "无需编译、打包，带来极致的开发体验。",
+        "efficient2" : "10kb min+gzip 大小。超快虚拟DOM。"
     },
 
     "loss" : {
