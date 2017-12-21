@@ -6,9 +6,10 @@
 "use strict";
 
 const fs     = require("fs");
-const http   = require("http");
 const path   = require("path");
 const zlib   = require("zlib");
+const http   = require("http");
+const https  = require("https");
 const brotli = require("brotli");
 const crypto = require("crypto");
 
@@ -16,6 +17,7 @@ const routers = [];
 const sources = {};
 
 const HTTP_SITE_PORT = 80;
+const HTTP_SAFE_PORT = 443;
 const HTTP_MIME_TYPE = {
     ".js"   : { type: "text/javascript; charset=UTF-8" , mini: true  },
     ".md"   : { type: "text/markdown; charset=UTF-8"   , mini: true  },
@@ -116,7 +118,7 @@ use(/^\/$/,
      */
     function (url, headers, res) {
         res.writeHead(301, {
-            "Location" : "/home.html"
+            "Location" : "https://www.elfjs.org/home.html"
         });
         res.end();
     }
@@ -154,7 +156,10 @@ use(/^\/[^\/]*\.html$/i,
     }
 );
 
-http.createServer(function (req, res) {
+https.createServer({
+    key  : fs.readFileSync(path.join(__dirname, "214394620830617.key")),
+    cert : fs.readFileSync(path.join(__dirname, "214394620830617.pem"))
+}, function (req, res) {
     try {
         hwd(req.url.replace(/[?#]+.*$/, ""), req.headers || {}, res);
     } catch (error) {
@@ -165,4 +170,11 @@ http.createServer(function (req, res) {
 
         }
     }
+}).listen(HTTP_SAFE_PORT);
+
+http.createServer(function (req, res) {
+    res.writeHead(301, {
+        "Location" : "https://www.elfjs.org" + req.url
+    });
+    res.end();
 }).listen(HTTP_SITE_PORT);
