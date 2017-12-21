@@ -1,199 +1,168 @@
 /**
  * 
- * @copyright (C) 2017 Wu Hu. All Rights Reserved.
+ * @copyright 2018 Wu Hu. All Rights Reserved.
  * 
  */
-
 "use strict";
 
-/////////////////////////////////////////////////
+const fs     = require("fs");
+const http   = require("http");
+const path   = require("path");
+const zlib   = require("zlib");
+const brotli = require("brotli");
+const crypto = require("crypto");
 
-const fs   = require("fs");
-const http = require("http");
-const path = require("path");
-const zlib = require("zlib");
-const list = [];
+const routers = [];
+const sources = {};
 
-const TEXT_CHAR = "; charset=UTF-8";
-const TEXT_TYPE = {
-        type    : "text/plain" + TEXT_CHAR,
-        gzip    : true 
+const HTTP_SITE_PORT = 80;
+const HTTP_MIME_TYPE = {
+    ".js"   : { type: "text/javascript; charset=UTF-8" , mini: true  },
+    ".md"   : { type: "text/markdown; charset=UTF-8"   , mini: true  },
+    ".css"  : { type: "text/css; charset=UTF-8"        , mini: true  },
+    ".html" : { type: "text/html; charset=UTF-8"       , mini: true  },
+    ".json" : { type: "application/json; charset=UTF-8", mini: true  },
+    ".ico"  : { type: "image/x-icon"                   , mini: false }
 };
-const MIME_TYPE = {
-    ".js"       : {
-        type    : "text/javascript"  + TEXT_CHAR,
-        gzip    : true
-    },
-    ".ts"       : {
-        type    : "text/typescript"  + TEXT_CHAR,
-        gzip    : true
-    },
-    ".json"     : {
-        type    : "application/json" + TEXT_CHAR,
-        gzip    : true
-    },
-    ".html"     : {
-        type    : "text/html"        + TEXT_CHAR,
-        gzip    : true
-    },
-    ".scss"     : {
-        type    : "text/scss"        + TEXT_CHAR,
-        gzip    : true
-    },
-    ".css"      : {
-        type    : "text/css"         + TEXT_CHAR,
-        gzip    : true
-    },
-    ".svg"      : {
-        type    : "image/svg+xml",
-        gzip    : true
-    },
-    ".jpg"      : {
-        type    : "image/jpeg",
-        gzip    : false
-    },
-    ".png"      : {
-        type    : "image/png",
-        gzip    : false
+
+function use (url, hwd) {
+    routers.push({ url: url, hwd: hwd });
+}
+function hwd (url, headers, res) {
+    for (let itm of routers) {
+        if (itm.url.test(url)) {
+            itm.hwd(url, headers, res);
+            return;
+        }
     }
-};
+    _404(res);
+}
+function end (url, headers, res) {
+    if (fs.existsSync(url)) {
+        let remark = fs.statSync(url);
+        if (remark.isFile() === false) {
+            return _404(res);
+        }
+        let source = sources[url];
+        let coding = headers["accept-encoding"] ? headers["accept-encoding"].split(/[,\s]+/g) : [];
+        let charac = remark.mtime;
+        if (source && source.since.getTime() === charac.getTime()) {
+            if (source.match === headers["if-none-match"] ||
+                source.since.toUTCString() === headers["if-modified-since"]) {
+                return _304(res, source);
+            } else {
+                return _200(res, source);
+            }
+        }
+        let mime = HTTP_MIME_TYPE[path.extname(url).toLowerCase()];
+        if (mime === void 0) {
+            return _404(res);
+        }
+        let byte = fs.readFileSync(url);
+        let code = void 0;
+        if (mime.mini) {
+            if (coding.indexOf("br") >= 0) {
+                byte = new Buffer(brotli.compress(byte));
+                code = "br";
+            } else
+            if (coding.indexOf("gzip") >= 0) {
+                byte = zlib.gzipSync(byte);
+                code = "gzip";
+            } else
+            if (coding.indexOf("deflate") >= 0) {
+                byte = zlib.deflateSync(byte);
+                code = "deflate";
+            }
+        }
+        let etag = crypto.createHash("md5").update(byte).digest("hex").toLowerCase();
+        return _200(res, sources[url] = {
+            since : charac,
+            match : etag,
+            code  : code,
+            byte  : byte,
+            type  : mime.type
+        });
+    }
+    return _404(res);
+}
+function _200 (res, data) {
+    res.statusCode = 200;
+    res.setHeader("Etag", data.match);
+    res.setHeader("Cache-Control", "max-age=86400");
+    res.setHeader("Last-Modified", data.since.toUTCString());
+    res.setHeader("Expires", new Date(data.since.getTime() + 315360000000).toUTCString());
+    res.setHeader("Content-Length", data.byte.length);
+    res.setHeader("Content-Type", data.type);
+    if (data.code) {
+        res.setHeader("Content-Encoding", data.code);
+    }
+    res.end(data.byte);
+}
+function _304 (res, data) {
+    res.statusCode = 304;
+    res.setHeader("Etag", data.match);
+    res.setHeader("Cache-Control", "max-age=86400");
+    res.setHeader("Expires", new Date(data.since.getTime() + 315360000000).toUTCString());
+    res.end();
+}
+function _404 (res) {
+    res.statusCode = 404;
+    res.end("Not Found");
+}
 
-
-use(/^\/$/i,
+use(/^\/$/,
     /**
      * 
-     * @param {String} url
-     * @param {http.IncomingMessage} req
-     * @param {http.OutgoingMessage} res
      */
-    function (url, req, res) {
+    function (url, headers, res) {
         res.writeHead(301, {
             "Location" : "/home.html"
         });
         res.end();
     }
 );
-
 use(/^\/static\//i,
     /**
      * 
-     * @param {String} url
-     * @param {http.IncomingMessage} req
-     * @param {http.OutgoingMessage} res
      */
-    function (url, req, res) {
-        return _200(path.join(__dirname, "node_modules", url.replace(/^\/static\//i, "/")), req, res);
+    function (url, headers, res) {
+        end(path.join(__dirname, "node_modules", url.replace(/^\/static\//i, "/")), headers, res);
     }
 );
-
 use(/^\/(?:assets|commons|components|documents|languages|views)\//i,
     /**
      * 
-     * @param {String} url
-     * @param {http.IncomingMessage} req
-     * @param {http.OutgoingMessage} res
      */
-    function (url, req, res) {
-        return _200(path.join(__dirname, "src", url), req, res);  
+    function (url, headers, res) {
+        end(path.join(__dirname, "src", url), headers, res);  
     }
 );
-
 use (/^\/(?:robots\.txt|sitemap\.xml|favicon\.ico)$/i,
     /**
      * 
-     * @param {String} url
-     * @param {http.IncomingMessage} req
-     * @param {http.OutgoingMessage} res
      */
-    function (url, req, res) {
-        return _200(path.join(__dirname, url), req, res);
+    function (url, headers, res) {
+        end(path.join(__dirname, url), headers, res);
     }
 );
-
 use(/^\/[^\/]*\.html$/i,
-
     /**
      * 
-     * @param {String} url
-     * @param {http.IncomingMessage} req
-     * @param {http.OutgoingMessage} res
      */
-    function (url, req, res) {
-        return _200(path.join(__dirname, "src/main.html"), req, res);
+    function (url, headers, res) {
+        end(path.join(__dirname, "src/main.html"), headers, res);
     }
 );
 
-/**
- * 
- * 
- */
 http.createServer(function (req, res) {
+    try {
+        hwd(req.url.replace(/[?#]+.*$/, ""), req.headers || {}, res);
+    } catch (error) {
+        try {
+            res.statusCode = 500;
+            res.end("Server Error");
+        } catch (error) {
 
-    return hwd(req.url.replace(/[?#]+.*$/, ""), req, res);
-
-}).listen(8080);
-
-/**
- * 
- * 
- * @param {RegExp} regexp 
- * @param {Function} handler 
- */
-function use (regexp, handler) {
-    list.push({
-        path    : regexp,
-        handler : handler
-    });
-}
-
-/**
- * 
- * 
- * @param {String} router 
- * @param {http.IncomingMessage} req 
- * @param {http.OutgoingMessage} res 
- */
-function hwd (router, req, res) {
-    for (let item of list) {
-        if (item.path.test(router)) {
-            return item.handler(router, req, res);
         }
     }
-    return _404(router, req, res);
-}
-
-/**
- * 
- * 
- * @param {String} router 
- * @param {http.IncomingMessage} req 
- * @param {http.OutgoingMessage} res 
- */
-function _200 (router, req, res) {
-    if (fs.existsSync(router) &&
-        fs.statSync(router).isFile()) {
-        const mimetype = MIME_TYPE[
-            path.extname(router).toLowerCase()] || TEXT_TYPE;
-        res.setHeader("Content-Type", mimetype.type);
-        if (mimetype.gzip) {
-            res.setHeader("Content-Encoding", "gzip");
-            fs.createReadStream(router).pipe(zlib.createGzip()).pipe(res);
-        } else {
-            fs.createReadStream(router).pipe(res);
-        }
-    } else {
-        _404(router, req, res);
-    }
-}
-
-/**
- * 
- * 
- * @param {String} router 
- * @param {http.IncomingMessage} req 
- * @param {http.OutgoingMessage} res 
- */
-function _404 (router, req, res) {
-    res.statusCode = 404;
-    res.end("Not Found");
-}
+}).listen(HTTP_SITE_PORT);

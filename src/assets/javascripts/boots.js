@@ -1,6 +1,6 @@
 /**
  * 
- * @copyright (C) 2017 Wu Hu. All Rights Reserved.
+ * @copyright 2018 Wu Hu. All Rights Reserved.
  * 
  */
 
