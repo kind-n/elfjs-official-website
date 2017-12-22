@@ -118,7 +118,7 @@
     * __Elf.Promise.prototype.then(onResolved, onRejected)__
     * 同 [window.Promise.prototype.then(onResolved, onRejected)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then)。
     * __Elf.Promise.prototype.dispose()__
-    * 尝试取消`promise`操作。该函数并不能终止`executor`的执行，仅执行`executor`函数返回的函数或在`promise`状态为`pending(初始)`时移除`onResolved`/`onRejected`，若`promise`已经是`resolved`/`rejected`状态，则该函数不起作用。
+    * 尝试取消`promise`操作。该函数并不能终止`executor`的执行，仅执行`executor`函数返回的函数。
 
 # 加载器方法
 
