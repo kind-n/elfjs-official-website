@@ -24,7 +24,9 @@ const HTTP_MIME_TYPE = {
     ".css"  : { type: "text/css; charset=UTF-8"        , mini: true  },
     ".html" : { type: "text/html; charset=UTF-8"       , mini: true  },
     ".json" : { type: "application/json; charset=UTF-8", mini: true  },
-    ".ico"  : { type: "image/x-icon"                   , mini: false }
+    ".ico"  : { type: "image/x-icon"                   , mini: false },
+    ".png"  : { type: "image/png"                      , mini: false },
+    ".xml"  : { type: "text/xml"                       , mini: true  }
 };
 
 function use (url, hwd) {
@@ -118,7 +120,7 @@ use(/^\/$/,
      */
     function (url, headers, res) {
         res.writeHead(301, {
-            "Location" : "https://www.elfjs.org/home.html"
+            "Location" : "/home.html"
         });
         res.end();
     }
@@ -178,3 +180,9 @@ http.createServer(function (req, res) {
     });
     res.end();
 }).listen(HTTP_SITE_PORT);
+
+/*
+http.createServer(function (req, res) {
+    hwd(req.url.replace(/[?#]+.*$/, ""), req.headers || {}, res);
+}).listen(8080);
+*/
