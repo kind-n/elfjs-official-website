@@ -342,6 +342,10 @@
     padding: .25em 0;
 }
 
+.elfjs-foot-copyright a {
+    text-decoration: underline;
+}
+
 .elfjs-foot-hyperlink:hover,
 .elfjs-foot-hyperlink:active {
     text-decoration: underline;

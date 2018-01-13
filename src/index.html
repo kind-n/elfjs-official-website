@@ -16,23 +16,20 @@
         <link rel="stylesheet" type="text/css" href="./assets/stylesheets/code.css">
         <link rel="stylesheet" type="text/css" href="./assets/stylesheets/main.css">
     </head>
-
     <body>
         <section>
             <div class="elfjs-loading"></div>
         </section>
 
-        <script defer type="text/javascript" src="./static/marked/marked.min.js"></script>
-        <script defer type="text/javascript" src="./static/elfjs/dist/elf.min.js"></script>
-        <script defer type="text/javascript" src="./static/elfjs/dist/exts/elf-loader.min.js"></script>
-<!--[if IE 9]>
-        <script defer type="text/javascript" src="./static/elfjs/dist/shims/shims_for_IE9.min.js"></script>
-<![endif]-->
+        <script defer type="text/javascript" src="./jskits/marked/marked.min.js"></script>
+        <script defer type="text/javascript" src="./jskits/elfjs/dist/elf.min.js"></script>
+        <script defer type="text/javascript" src="./jskits/elfjs/dist/exts/elf-loader.min.js"></script>
         <script defer type="text/javascript" src="./assets/javascripts/libs/highlight/highlight.js"></script>
         <script defer type="text/javascript" src="./assets/javascripts/libs/highlight/languages/css.js"></script>
         <script defer type="text/javascript" src="./assets/javascripts/libs/highlight/languages/xml.js"></script>
         <script defer type="text/javascript" src="./assets/javascripts/libs/highlight/languages/html.js"></script>
         <script defer type="text/javascript" src="./assets/javascripts/libs/highlight/languages/javascript.js"></script>
-        <script defer type="text/javascript" src="./assets/javascripts/boots.js"></script>
+        <script defer type="text/javascript" src="./assets/javascripts/config.js"></script>
+        <script defer type="text/javascript" src="./assets/javascripts/app.js" data-main="./bootstraps/index.js"></script>
     </body>
 </html>

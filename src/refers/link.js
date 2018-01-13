@@ -1,7 +1,8 @@
-var Mappings = [];
+var Elf      = require("elfjs");
 var Viewport = void 0;
+var Mappings = [];
 
-module.exports.RouterLink = Elf.Component("router-link", {
+exports.RouterLink = Elf.Component("router-link", {
     render      : function () {
         return Elf.createElement("a", Elf.assign({ ref: "link" }, this.props), this.props.children);
     },
@@ -17,15 +18,15 @@ module.exports.RouterLink = Elf.Component("router-link", {
         forth(this.props.href);
     }
 });
-module.exports.RouterView = Elf.Component("router-view", {
+exports.RouterView = Elf.Component("router-view", {
     render      : function () {
         return typeof Viewport === "function" ? Elf.createElement(Viewport) : null;
     }
 });
 
-module.exports.state = state;
-module.exports.forth = forth;
-module.exports.start = start;
+exports.state = state;
+exports.forth = forth;
+exports.start = start;
 
 function glob (expr) {
     return new RegExp("^" + expr.replace(".", "\\.").replace("**", ".*") + "$", "i");

@@ -1,18 +1,17 @@
-var global = require("../global");
-var helper = require("../helper");
-
-var Mappings = [];
+var Elf      = require("elfjs");
+var global   = require("./commons/global");
+var helper   = require("./commons/helper");
 var Language = void 0;
+var Mappings = [];
 
-module.exports.I18nTransform = Elf.Transform("i18n", {
+exports.I18nTransform = Elf.Transform("i18n", {
     transform : function (value) {
         return helper.eachProps(Language, value);
     }
 });
-
-module.exports.state = state;
-module.exports.usage = usage;
-module.exports.start = start;
+exports.state = state;
+exports.usage = usage;
+exports.start = start;
 
 function state (name, path) {
     Mappings.push({ name: name, path: path });
