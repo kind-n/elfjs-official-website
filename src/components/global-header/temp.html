@@ -1,0 +1,35 @@
+<header class="global-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-xs-8 text-nowrap vertial-middle">
+                <span class="global-header-logo">
+                    <router-link href="/home.html" onclick="onRouteItemClick(event);">
+                        <span class="fg-clr-3">E</span>
+                        <span class="fg-clr-1">L</span>
+                        <span class="fg-clr-1">F</span>
+                        <span class="fg-clr-2">.</span>
+                    </router-link>
+                </span>
+            </div>
+            <div class="col-sm-8 col-xs-4 text-nowrap text-right">
+                <input class="global-header-menu-input hidden-sm" type="checkbox" id="global-header-menu-input" ref="hwnd">
+                <label class="global-header-menu-shade hidden-sm" for="global-header-menu-input"></label>
+                <label class="global-header-menu-strip hidden-sm" for="global-header-menu-input"></label>
+                <ul class="global-header-menu fg-clr-2">
+                    <li class="text-left">
+                        <router-link class="{{ name === 'demo' ? 'target' : '' }}" href="/demo.html" onclick="onRouteItemClick(event);">{{ "menu.demo" | i18n }}</router-link>
+                    </li>
+                    <li class="text-left">
+                        <router-link class="{{ name === 'docs' ? 'target' : '' }}" href="/docs.html" onclick="onRouteItemClick(event);">{{ "menu.docs" | i18n }}</router-link>
+                    </li>
+                    <li class="text-left">
+                        <router-link class="{{ name === 'ours' ? 'target' : '' }}" href="/ours.html" onclick="onRouteItemClick(event);">{{ "menu.ours" | i18n }}</router-link>
+                    </li>
+                    <li class="text-left">
+                        <a class="fg-clr-2 cursor-pointer" href="javascript:void(0);" data-lang="{{ 'menu.lang.code' | i18n }}" onclick="onChangeLanguage(event);">{{ "menu.lang.text" | i18n }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

@@ -3,14 +3,17 @@
         "demo" : "Demo",
         "docs" : "Document",
         "ours" : "About",
-        "lang" : "中文"
+        "lang" : {
+            "code" : "zh-CN",
+            "text" : "中文"
+        }
     },
 
     "foot" : {
-        "join"      : "Join Us",
+        "mailus"    : "Contact Us",
         "report"    : "Report Error",
         "license"   : "Released under the MIT license",
-        "copyright" : "Copyright 2018 Wu Hu. All Rights Reserved.",
+        "copyright" : "Copyright 2018 ELFJS. All Rights Reserved.",
         "legitimate": "蜀ICP备18000927号"
     },
 

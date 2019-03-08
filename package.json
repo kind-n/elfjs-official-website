@@ -1,10 +1,14 @@
 {
     "name": "elfjs-official-website",
-    "version": "1.0.1",
+    "version": "2.1.0",
     "description": "elfjs official website",
     "dependencies": {
-        "elfjs": "~1.3.2",
-        "marked": "~0.3.12"
+        "elfjs": "~2.1.0",
+        "elfjs-common": "~2.0.0",
+        "elfjs-engine": "~2.0.0",
+        "elfjs-loader": "~2.0.0",
+        "elfjs-router": "~2.0.0",
+        "marked": "~0.6.1"
     },
     "devDependencies": {
         "glob": "~7.1.2",

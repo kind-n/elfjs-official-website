@@ -25,8 +25,9 @@ var HTML_PATTERN = [
 // Copy glob pattern in SOURCE_PATH
 var COPY_PATTERN = [
     "assets/**/*.*",
-    "documents/**/*.*",
-    "languages/**/*.*",
+    "components/**/*.*",
+    //"documents/**/*.*",
+    //"languages/**/*.*",
     "views/**/*.*"
 ];
 
@@ -79,10 +80,13 @@ module.exports = {
         new CopyFilePlugin([{
             from: HTML_PATTERN.length === 1 ? HTML_PATTERN[0] : "{" + HTML_PATTERN.join(",") + "}",
             transform: function (value, path) {
-                return value
-                    .toString()
-                    .replace(/(\s*<script.*src=").\/jskits\/elfjs\/dist\/exts\/elf-loader\.min\.js(".*\/script>)/g, "")
-                    .replace(/(\s*<script.*src=").\/assets\/javascripts\/app\.js".*data-main="(.*)(".*\/script>)/g, "$1$2$3");
+                return value.toString()
+                    
+                    // Remove the loader script when packaging if not using it. 
+                    // .replace(/(\s*<script.*src=")\/node_modules\/elfjs-loader\/dist\/elf-loader\.min\.js(".*\/script>)/g, "")
+                    
+                    // Remove simple load helper for development when packaging.
+                    .replace(/(\s*<script.*src=")\.\/assets\/javascripts\/app\.js".*data-main="(.*)(".*\/script>)/g, "$1$2$3");
             }
         }].concat(
             COPY_PATTERN.map(function (item) {
@@ -91,6 +95,10 @@ module.exports = {
         ))
     ],
     externals: {
-        "elfjs": "window.Elf"
+        "elfjs"       : "window.Elf",
+        "elfjs-common": "window.Elf",
+        "elfjs-engine": "window.Elf",
+        "elfjs-loader": "window.Elf",
+        "elfjs-router": "window.Elf"
     }
 };

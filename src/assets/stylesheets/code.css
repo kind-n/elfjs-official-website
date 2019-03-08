@@ -1,12 +1,24 @@
 @charset "UTF-8";
 
-.elfjs-code {
-    line-height: 1.5em;
-    padding-bottom: 30px;
-    min-height: 450px;
+
+.markdown-body {
+    word-wrap: break-word;
+    line-height: 1.5;
+    font-size: 16px;
 }
 
-.elfjs-code:empty::before {
+.markdown-body:before {
+    content: "";
+    display: table;
+}
+
+.markdown-body:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.markdown-body:empty::before {
     top: 50%;
     left: 50%;
     width: 1.6rem;
@@ -25,7 +37,7 @@
     animation: loading 2.5s linear infinite;
 }
 
-.elfjs-code:empty::after {
+.markdown-body:empty::after {
     top: 50%;
     left: 50%;
     width: 1.3rem;
@@ -44,84 +56,77 @@
     animation: loading 1.5s linear infinite;
 }
 
-.elfjs-code a {
+.markdown-body > :first-child {
+    margin-top: 0 !important;
+}
+
+.markdown-body > :last-child {
+    margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+    text-decoration: none;
+    color: inherit;
+}
+
+.markdown-body a {
     color: #dd356e;
 }
-
-.elfjs-code a:hover,
-.elfjs-code a:active {
-    color: #cc2f67;
+.markdown-body a:hover {
     text-decoration: underline;
+    color: #cc2f67;
 }
-
-.elfjs-code p {
+.markdown-body p {
     margin: 1em 0 0 2em;
-    overflow: hidden;
 }
 
-.elfjs-code li {
-    padding: 1em 0 0 2em;
-    box-sizing: border-box;
-    overflow: hidden;
+.markdown-body dl,
+.markdown-body ol,
+.markdown-body ul,
+.markdown-body table {
+    margin: 1em;
 }
 
-.elfjs-code li li {
-    padding: .2em 0 0 2em;
-}
-
-.elfjs-code h1 {
-    padding: 2em 0 .5em;
-    font-size: 2.25em;
-    font-weight: 700;
-    overflow: hidden;
-}
-.elfjs-code h2 {
-    padding: 1em 0 .2em;
-    font-size: 1.75em;
-    font-weight: 700;
-    overflow: hidden;
-}
-
-.elfjs-code hr {
+.markdown-body hr {
     border: 0;
-    height: 1px;
-    background-color: #bbbbbb;
-    color: #bbbbbb;
+    height: 4px;
+    margin: 24px 0;
+    background-color: #e1e4e8;
+    padding: 0;
 }
 
-.elfjs-code pre {
+.markdown-body pre {
     padding: 1em;
-    margin-top: .5em;
-    background-color: #f1f1f1;
+    margin: .5em 2em;
+    background-color: #f9f9f9;
     overflow: hidden;
 }
 
-.elfjs-code code {
-    margin: 0 .25em;
+.markdown-body code {
+    margin: 0;
     padding: 0 .4em;
     color: #fd971f;
-    background-color: #f9f9f2;
+    background-color: #f9f9f9;
     border-radius: 4px;
 }
 
-.elfjs-code pre code {
-    margin: 0;
+.markdown-body pre code {
     padding: 0;
     color: currentColor;
     background-color: transparent;
     border-radius: 0;
 }
 
-.elfjs-code blockquote {
-    margin: 1.5em 0 .2em;
-    padding: .8em 0 .8em calc(2em - 3px);
-    border-left: 3px solid #dd356e;
-    background-color: #f1f1f1;
+.markdown-body blockquote {
+    padding: .8em 1em;
     position: relative;
+    background-color: #f9f9f9;
+    border-left: .25em solid #dd356e;
+    margin: 1em 2em;
     color: #7b7b7b;
 }
 
-.elfjs-code blockquote::before {
+.markdown-body blockquote::before {
     width: 24px;
     height: 24px;
     display: block;
@@ -137,60 +142,151 @@
     top: 12px;
 }
 
-.elfjs-code blockquote p {
-    margin: 0;
+.markdown-body blockquote > :first-child {
+    margin-top: 0;
 }
 
-.elfjs-code .keyword {
+.markdown-body blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+.markdown-body blockquote p {
+    margin-left: 1em;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    margin-top: 24px;
+}
+
+.markdown-body h1 code,
+.markdown-body h1 tt,
+.markdown-body h2 code,
+.markdown-body h2 tt,
+.markdown-body h3 code,
+.markdown-body h3 tt,
+.markdown-body h4 code,
+.markdown-body h4 tt,
+.markdown-body h5 code,
+.markdown-body h5 tt,
+.markdown-body h6 code,
+.markdown-body h6 tt {
+    font-size: inherit;
+}
+
+.markdown-body dl p,
+.markdown-body ol p,
+.markdown-body ul p {
+    margin-left: 0;
+}
+
+.markdown-body h1 {
+    font-size: 2em;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: .3em;
+}
+
+
+.markdown-body h2 {
+    font-size: 1.5em;
+}
+
+.markdown-body h3 {
+    font-size: 1.25em;
+}
+
+.markdown-body h4 {
+    font-size: 1em;
+}
+
+.markdown-body h5 {
+    font-size: .875em;
+}
+
+.markdown-body h6 {
+    font-size: .85em;
+    opacity: .8;
+}
+
+.markdown-body ol,
+.markdown-body ul {
+    padding-left: 2em;
+}
+
+.markdown-body ol {
+    list-style: decimal;
+}
+
+.markdown-body ul {
+    list-style: disc;
+}
+
+.markdown-body ol ul,
+.markdown-body ul ul {
+    list-style: circle;
+}
+
+.markdown-body .keyword {
     color: #3854d4;
 }
-.elfjs-code .builtin {
+.markdown-body .builtin {
     color: #b65611;
 }
-.elfjs-code .string,
-.elfjs-code .string .after,
-.elfjs-code .string .before {
+.markdown-body .string,
+.markdown-body .string .after,
+.markdown-body .string .before {
     color: #479d64;
 }
-.elfjs-code .regexp,
-.elfjs-code .regexp .after,
-.elfjs-code .regexp .before {
+.markdown-body .regexp,
+.markdown-body .regexp .after,
+.markdown-body .regexp .before {
     color: #d73737;
 }
-.elfjs-code .comment,
-.elfjs-code .comment .after,
-.elfjs-code .comment .before {
+.markdown-body .comment,
+.markdown-body .comment .after,
+.markdown-body .comment .before {
     font-style: italic;
     color: #989697;
 }
-.elfjs-code .hashkey {
+.markdown-body .hashkey {
     color: #fd971f;
 }
-.elfjs-code .paren {
+.markdown-body .paren {
     color: #dd356e;
 }
-.elfjs-code .defun {
+.markdown-body .defun {
     color: #368221;
 }
-.elfjs-code .comma {
+.markdown-body .comma {
     color: #989697;
 }
-.elfjs-code .operator {
+.markdown-body .operator {
     color: #dd356e;
 }
-.elfjs-code .hasharrow {
+.markdown-body .hasharrow {
     color: #dd356e;
 }
-.elfjs-code .parameters {
+.markdown-body .parameters {
     color: #fd971f;
 }
-.elfjs-code .error {
+.markdown-body .error {
     color: #ffffff;
     background-color: #dd356e;
 }
 
 
-.elfjs-code .line-numbers {
+.markdown-body .line-numbers {
   float: left;
   margin-left: -4.5em;
   width: 3em;
@@ -199,69 +295,50 @@
   font: 0.9em tahoma,verdana,sans-serif;
   padding-top: 0.05em;
 }
-.elfjs-code .line-numbers:after { content: "." }
+.markdown-body .line-numbers:after { content: "." }
 
 /* XML */
 
-.elfjs-code .xml-tag-close .before { color: #52a; }
+.markdown-body .xml-tag-close .before { color: #52a; }
 
-.elfjs-code .xml-entity { color: #b2a; }
-.elfjs-code .xml-entity .before, .elfjs-code .xml-entity .after { color: #607; }
+.markdown-body .xml-entity { color: #b2a; }
+.markdown-body .xml-entity .before, .markdown-body .xml-entity .after { color: #607; }
 
 /* CSS */
 
-.elfjs-code .css-class { color: #000; font-style: italic; }
-.elfjs-code .css-pseudo-class { color: #777; }
-.elfjs-code .css-id { font-weight: bold; }
-.elfjs-code .css-color-spec { color: #a51; }
-.elfjs-code .css-length { color: #a19; }
-.elfjs-code .css-length .after { font-weight: bold; }
-.elfjs-code .css-declaration-kw { font-weight: bold; }
-.elfjs-code .css-comma { color: red; }
+.markdown-body .css-class { color: #000; font-style: italic; }
+.markdown-body .css-pseudo-class { color: #777; }
+.markdown-body .css-id { font-weight: bold; }
+.markdown-body .css-color-spec { color: #a51; }
+.markdown-body .css-length { color: #a19; }
+.markdown-body .css-length .after { font-weight: bold; }
+.markdown-body .css-declaration-kw { font-weight: bold; }
+.markdown-body .css-comma { color: red; }
 
 
-.elfjs-hash {
-    font-size: 0;
+.markdown-hash {
+    overflow: hidden;
     -webkit-transition: margin-top 1s;
     -moz-transition: margin-top 1s;
     transition: margin-top 1s;
 }
 
-.elfjs-hash a {
+.markdown-hash a {
     display: block;
+    padding: .15em 5px;
     border-left: 2px solid transparent;
+    color: inherit;
     opacity: .9;
 }
 
-.elfjs-hash a:hover,
-.elfjs-hash a:active {
+.markdown-hash a:hover,
+.markdown-hash a.hover {
     border-left-color: #dd356e;
+    text-decoration: none;
+    color: inherit;
     opacity: 1;
 }
 
-.elfjs-hash .elfjs-lyr-1 {
-    text-indent: 0;
-    color: #414141;
-    padding: .6em 5px;
-}
-
-.elfjs-hash .elfjs-lyr-2 {
-    text-indent: 1em;
-    color: #767676;
-    padding: .3em 5px;
-}
-
-.elfjs-hash .elfjs-lyr-3 {
-    text-indent: 2em;
-    color: #9a9a9a;
-}
-
-@media (min-width: 800px) {
-    .elfjs-code {
-        padding-right: 1.5em;
-    }
-    .elfjs-hash {
-        padding: 3.5em 0 30px 10%;
-        font-size: 14px;
-    }    
+.markdown-hash ul {
+    padding: 0 2em .3em;
 }

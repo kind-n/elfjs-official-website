@@ -1,1 +1,0 @@
-Sorry, English is being translated.

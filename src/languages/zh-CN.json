@@ -3,14 +3,17 @@
         "demo" : "教程",
         "docs" : "文档",
         "ours" : "关于",
-        "lang" : "English"
+        "lang" : {
+            "code" : "en-US",
+            "text" : "English"
+        }
     },
     
     "foot" : {
-        "join"      : "加入我们",
+        "mailus"    : "联系我们",
         "report"    : "报告错误",
         "license"   : "遵循 MIT 开源协议",
-        "copyright" : "版权所有 2018 吴虎。保留所有权利。",
+        "copyright" : "版权所有 2018 ELFJS。保留所有权利。",
         "legitimate": "蜀ICP备18000927号"
     },
 

@@ -4,32 +4,43 @@
         <title>Elf.js</title>
 
         <meta charset="UTF-8">
-        <meta content="no-siteapp" http-equiv="Cache-Control">
+        <meta content="no-transform" http-equiv="Cache-Control">
         <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <meta content="Elf.js - Intuitive, Concise, Fast and Composable MVVM for building interactive interfaces." name="description">
         <meta content="pc,mobile" name="applicable-device">
 
-        <link rel="shortcut icon" type="image/x-png" href="./assets/favicon.png" >
-        <link rel="stylesheet" type="text/css" href="https://fonts.lug.ustc.edu.cn/css?family=Inconsolata:400,700">
-        <link rel="stylesheet" type="text/css" href="./assets/stylesheets/base.css">
-        <link rel="stylesheet" type="text/css" href="./assets/stylesheets/code.css">
-        <link rel="stylesheet" type="text/css" href="./assets/stylesheets/main.css">
-    </head>
-    <body>
-        <section>
-            <div class="elfjs-loading"></div>
-        </section>
+        <link rel="shortcut icon" type="image/x-png" href="/assets/images/favicon.png">
 
-        <script defer type="text/javascript" src="./jskits/marked/marked.min.js"></script>
-        <script defer type="text/javascript" src="./jskits/elfjs/dist/elf.min.js"></script>
-        <script defer type="text/javascript" src="./jskits/elfjs/dist/exts/elf-loader.min.js"></script>
-        <script defer type="text/javascript" src="./assets/javascripts/libs/highlight/highlight.js"></script>
-        <script defer type="text/javascript" src="./assets/javascripts/libs/highlight/languages/css.js"></script>
-        <script defer type="text/javascript" src="./assets/javascripts/libs/highlight/languages/xml.js"></script>
-        <script defer type="text/javascript" src="./assets/javascripts/libs/highlight/languages/html.js"></script>
-        <script defer type="text/javascript" src="./assets/javascripts/libs/highlight/languages/javascript.js"></script>
-        <script defer type="text/javascript" src="./assets/javascripts/config.js"></script>
-        <script defer type="text/javascript" src="./assets/javascripts/app.js" data-main="./bootstraps/index.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://fonts.lug.ustc.edu.cn/css?family=Inconsolata:400,700">
+        <link rel="stylesheet" type="text/css" href="/assets/stylesheets/animate.css">
+        <link rel="stylesheet" type="text/css" href="/assets/stylesheets/base.css">
+        <link rel="stylesheet" type="text/css" href="/assets/stylesheets/code.css">
+        <link rel="stylesheet" type="text/css" href="/assets/stylesheets/main.css">
+
+        <!--[if IE 9]><link rel="stylesheet" type="text/css" href="./assets/stylesheets/base_for_IE9.css"><![endif]-->
+
+    </head>
+    <body class="brightness smoothness transition">
+
+        <div class="global-container">
+            <div class="global-loading"></div>
+        </div>
+
+        <script defer type="text/javascript" src="/node_modules/marked/marked.min.js"></script>
+        <script defer type="text/javascript" src="/node_modules/elfjs/dist/elf.min.js"></script>
+        <script defer type="text/javascript" src="/node_modules/elfjs-common/dist/elf-common.min.js"></script>
+        <script defer type="text/javascript" src="/node_modules/elfjs-loader/dist/elf-loader.min.js"></script>
+        <script defer type="text/javascript" src="/node_modules/elfjs-router/dist/elf-router.min.js"></script>
+        <script defer type="text/javascript" src="/assets/javascripts/libs/highlight/highlight.js"></script>
+        <script defer type="text/javascript" src="/assets/javascripts/libs/highlight/languages/css.js"></script>
+        <script defer type="text/javascript" src="/assets/javascripts/libs/highlight/languages/xml.js"></script>
+        <script defer type="text/javascript" src="/assets/javascripts/libs/highlight/languages/html.js"></script>
+        <script defer type="text/javascript" src="/assets/javascripts/libs/highlight/languages/javascript.js"></script>
+
+        <!--[if IE 9]><script defer type="text/javascript" src="/node_modules/elfjs/dist/shims_for_IE9.min.js"></script><![endif]-->
+
+        <script defer type="text/javascript" src="/assets/javascripts/app.configuration.js"></script>
+        <script defer type="text/javascript" src="/assets/javascripts/app.js" data-main="/bootstraps/main.js"></script>
     </body>
 </html>

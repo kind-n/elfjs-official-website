@@ -1,0 +1,30 @@
+<div class="global-marked">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <section>
+                    <div ref="code" class="markdown-body" innerHTML="{{ marked }}"></div>
+                </section>
+            </div>
+            <div class="col-md-3 reveal-md">
+                <article>
+                    <div ref="hash"
+                        class="markdown-hash fg-clr-2"
+                        onmouseenter="this.composing = !0"
+                        onmouseleave="this.composing = !1">
+                        <ul e-if="hashes.length">
+                            <li e-for="item in hashes">
+                                <a class="{{ topname == item.hash ? 'hover' : '' }}" href="#{{ item.hash }}">{{ item.name }}</a>
+                                <ul e-if="item.children.length">
+                                    <li e-for="item in item.children">
+                                        <a class="{{ topname == item.hash ? 'hover' : '' }}" href="#{{ item.hash }}">{{ item.name }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
