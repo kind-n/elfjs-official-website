@@ -19,7 +19,7 @@
         "html-loader": "~0.5.4"
     },
     "scripts": {
-        "build": "./node_modules/.bin/webpack",
-        "start": "./node_modules/.bin/elfjs view"
+        "build": "webpack",
+        "start": "elfjs view"
     }
 }

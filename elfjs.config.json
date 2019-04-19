@@ -1,14 +1,26 @@
 {
     "types": {},
-    "zlibs": {},
+    "zlibs": {
+        "js"   : false,
+        "ts"   : false,
+        "md"   : false,
+        "txt"  : false,
+        "css"  : false,
+        "xml"  : false,
+        "sass" : false,
+        "scss" : false,
+        "less" : false,
+        "json" : false,
+        "svg"  : false
+    },
     "https": {
         "key": null,
         "cert": null,
         "port": 443
     },
-    "route": "app.js",
+    "route": "elfjs.router.js",
     "cache": 0,
     "host": null,
-    "port": 8080,
+    "port": 10001,
     "dir": "src"
 }
